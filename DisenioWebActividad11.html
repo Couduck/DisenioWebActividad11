@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad 11 Diseño Aplicaciones Web</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+<div id="app">
+    <h1 v-if="(oportunidades>0)">Oportunidades restantes {{oportunidades}}</h1>
+    <h1 v-else="(oportunidades==0)">Se acabaron las oportunidades</h1>
+    <h2>Jugador 1: {{jugador1}}</h2><br>
+    <h2>Jugador 2: {{jugador2}}</h2>
+    <h1>EL RESULTADO ES: {{ganador}}</h1>
+
+    <input type="button" v-on:click="jugar()" value="EMPEZAR JUEGO" :disabled="desactivarBoton()">
+    <input type="button" v-if="(oportunidades==0)" v-on:click="reiniciar()" value="REINICIAR JUEGO">
+
+</div>
+
+<script type="text/javascript">
+  
+  var app = new Vue({
+  el: '#app',
+  data: 
+  {
+    jugador1: 0,
+    jugador2: 0,
+    ganador:".",
+    oportunidades: 3
+  },
+
+  methods:
+  {
+    jugar : function()
+    {
+
+        this.jugador1 = Math.round(Math.random()*10);
+        this.jugador2 = Math.round(Math.random()*10);
+
+        if(this.jugador1 == this.jugador2)
+        {
+            mensaje="Empate";
+        }
+
+        if(this.jugador1 > this.jugador2)
+        {
+            mensaje="Jugador 1 GANA";
+        }
+
+        if(this.jugador1 < this.jugador2)
+        {
+            mensaje="Jugador 2 GANA";
+        }
+
+        this.ganador = mensaje;
+
+        this.oportunidades--;
+
+    },
+
+    reiniciar : function()
+    {
+        this.oportunidades = 3;
+    },
+
+    desactivarBoton : function()
+    {
+        if(this.oportunidades == 0)
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+    }
+  }
+})
+
+
+</script>
+  
+
+</body>
+</html>
